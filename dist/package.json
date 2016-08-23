@@ -1,6 +1,6 @@
 {
   "name": "express-decorate",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "description": "Express route decorators",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "typings": "typings/index.d.ts",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/mycompassspins/express-decorate.git"
   },
   "dependencies": {
     "chalk": "^1.1.3",

@@ -11,11 +11,8 @@
   "typings": "typings/index.d.ts",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/mycompassspins/express-decorate.git"
   },
-  "files": [
-    "dist/**/*"
-  ],
   "dependencies": {
     "express": "^4.13.4",
     "fs": "0.0.2"
