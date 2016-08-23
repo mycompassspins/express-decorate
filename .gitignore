@@ -1,6 +1,7 @@
 dist/**/*.js
-dist/**/*.ts
+dist/**/*.d.ts
 dist/ReadMe.md
+dist/package.json
 typings
 node_modules
 .idea
