@@ -2,7 +2,7 @@
 
 ###Usage:
 
-```language = js | linenumbers = true
+```javascript
 import { ExpressDecorate, IExpressDecorateOptions } from 'express-decorate'
 const OPTS:IExpressDecorateOptions = {
     ctrlDir: `${__dirname}/api`, // Required
@@ -19,7 +19,7 @@ new ExpressDecorate(OPTS);
 
 ###API:
 
-```language = js | linenumbers = true
+```javascript
 import { Controller, GET } from 'express-decorate'
 
 @Controller('/api/controller/:name')
