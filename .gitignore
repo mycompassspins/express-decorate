@@ -1,0 +1,7 @@
+dist/**/*.js
+dist/**/*.ts
+dist/ReadMe.md
+typings
+node_modules
+.idea
+.DS_Store
