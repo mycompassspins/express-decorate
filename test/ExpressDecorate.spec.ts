@@ -4,7 +4,7 @@
 
 ///<reference path="../typings/index.d.ts" />
 
-import { AppStart } from '../src/lib/api'
+import { AppStart } from './api'
 import { FileSystemHelper as fsHelper } from '../src/lib/helpers/FileSystemHelper'
 import express = require('express');
 

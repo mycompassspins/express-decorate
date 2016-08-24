@@ -4,8 +4,8 @@
 
 ///<reference path="../typings/index.d.ts" />
 
-import { AppStart } from '../src/lib/api'
-import { Request } from '../src/lib/helpers/HttpHelper'
+import { AppStart } from './api'
+import { Request } from './helpers/HttpHelper'
 
 describe('RouteConfig', () =>
 {

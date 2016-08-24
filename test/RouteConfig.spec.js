@@ -1,6 +1,6 @@
 "use strict";
-const api_1 = require('../src/lib/api');
-const HttpHelper_1 = require('../src/lib/helpers/HttpHelper');
+const api_1 = require('./api');
+const HttpHelper_1 = require('./helpers/HttpHelper');
 describe('RouteConfig', () => {
     let app = api_1.AppStart(4000);
     it('should have a route configured for /test', (done) => {

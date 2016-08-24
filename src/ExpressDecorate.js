@@ -1,6 +1,7 @@
 "use strict";
 const FileSystemHelper_1 = require('./lib/helpers/FileSystemHelper');
 const express_1 = require('express');
+const util = require('util');
 const chalk = require('chalk');
 class ExpressDecorate {
     constructor(app, opts) {
@@ -47,15 +48,19 @@ class ExpressDecorate {
                         for (const { method, mountpath, path, middleware, fnName } of controller.$routes) {
                             app.use(mountpath, this._routerAdd(opts, method, mountpath, path, middleware, fnName, controller));
                         }
+                        if (opts.debug) {
+                            this._constructLogMsg(null, 'debug', opts, `Routes for ${ctrlName}`);
+                            controller.$routes.forEach((route) => console.log(util.inspect(route)));
+                        }
                     }
                     catch (e) {
-                        this._constructErrorMsg(e, 'error', this.opts, `configuring routes for ${fileName}:`);
+                        this._constructLogMsg(e, 'error', this.opts, `configuring routes for ${fileName}:`);
                     }
                 }
             });
         }
         catch (e) {
-            this._constructErrorMsg(e, 'error', this.opts);
+            this._constructLogMsg(e, 'error', this.opts);
         }
     }
     _routerAdd(opts, method, mountpath, path, middleware, fnName, controller) {
@@ -63,8 +68,10 @@ class ExpressDecorate {
         router[method](path, ...middleware, controller[fnName]);
         return router;
     }
-    _constructErrorMsg(e, type, opts, customMsg) {
-        let chalk = require('chalk'), color = type === 'error' ? 'red' : type === 'debug' ? 'cyan' : 'blue', flag = `[${type.toUpperCase()}] `, error = opts.debug ? e : e.message, msg = customMsg ? `${customMsg}:` : '';
+    _constructLogMsg(e, type, opts, customMsg) {
+        let chalk = require('chalk'), color = type === 'error' ? 'red' : type === 'debug' ? 'cyan' : 'blue', flag = `[${type.toUpperCase()}] `, msg = customMsg ? `${customMsg}:` : '', error = '';
+        if (e)
+            error = opts.debug ? e : e.message;
         return console.log(chalk[color](flag), msg, error);
     }
 }

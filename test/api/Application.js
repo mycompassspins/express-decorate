@@ -1,5 +1,5 @@
 "use strict";
-const ExpressDecorate_1 = require('../../ExpressDecorate');
+const ExpressDecorate_1 = require('../../src/ExpressDecorate');
 const RouteConfig_1 = require('./RouteConfig');
 const express = require('express');
 let bodyParser = require('body-parser');

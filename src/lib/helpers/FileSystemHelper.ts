@@ -2,7 +2,7 @@
  * Created by Justin on 8/16/16.
  */
 
-import fs = require('fs');
+import { readdirSync, lstatSync } from 'fs'
 
 export class FileSystemHelper
 {
@@ -22,7 +22,7 @@ export class FileSystemHelper
 
         try
         {
-            fs.readdirSync(root).forEach((rootItem:string) =>
+            readdirSync(root).forEach((rootItem:string) =>
             {
                 if (this.IsDirectory(`${root}/${rootItem}`) && recursive)
                 {
@@ -47,7 +47,7 @@ export class FileSystemHelper
 
     public static IsDirectory(item:string):boolean
     {
-        return fs.lstatSync(item).isDirectory();
+        return lstatSync(item).isDirectory();
     }
 }
 

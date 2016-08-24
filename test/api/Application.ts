@@ -2,7 +2,7 @@
  * Created by Justin on 8/21/16.
  */
 
-import { ExpressDecorate, IExpressDecorateOptions } from '../../ExpressDecorate'
+import { ExpressDecorate, IExpressDecorateOptions } from '../../src/ExpressDecorate'
 import { RouteConfig } from './RouteConfig'
 import express = require('express');
 import http = require('http');

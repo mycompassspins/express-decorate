@@ -16,9 +16,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments)).next());
     });
 };
+const decorators_1 = require('../../src/lib/decorators');
 const TestMiddleware_1 = require('./TestMiddleware');
-const decorators_1 = require('../decorators');
-const TestMiddleware_2 = require('./TestMiddleware');
 let TestController = class TestController {
     TestMethod(req, res, next) {
         return __awaiter(this, void 0, Promise, function* () {
@@ -34,13 +33,13 @@ let TestController = class TestController {
 __decorate([
     decorators_1.GET('/'), 
     __metadata('design:type', Function), 
-    __metadata('design:paramtypes', [(typeof (_a = typeof TestMiddleware_1.IRequest !== 'undefined' && TestMiddleware_1.IRequest) === 'function' && _a) || Object, (typeof (_b = typeof TestMiddleware_1.IResponse !== 'undefined' && TestMiddleware_1.IResponse) === 'function' && _b) || Object, (typeof (_c = typeof TestMiddleware_1.INextFunction !== 'undefined' && TestMiddleware_1.INextFunction) === 'function' && _c) || Object]), 
+    __metadata('design:paramtypes', [Object, Object, Function]), 
     __metadata('design:returntype', Promise)
 ], TestController.prototype, "TestMethod", null);
 __decorate([
-    decorators_1.GET('/middleware-test', TestMiddleware_2.TestMiddleware.Test), 
+    decorators_1.GET('/middleware-test', TestMiddleware_1.TestMiddleware.Test), 
     __metadata('design:type', Function), 
-    __metadata('design:paramtypes', [(typeof (_d = typeof TestMiddleware_1.IRequest !== 'undefined' && TestMiddleware_1.IRequest) === 'function' && _d) || Object, (typeof (_e = typeof TestMiddleware_1.IResponse !== 'undefined' && TestMiddleware_1.IResponse) === 'function' && _e) || Object, (typeof (_f = typeof TestMiddleware_1.INextFunction !== 'undefined' && TestMiddleware_1.INextFunction) === 'function' && _f) || Object]), 
+    __metadata('design:paramtypes', [Object, Object, Function]), 
     __metadata('design:returntype', Promise)
 ], TestController.prototype, "TestMethod2", null);
 TestController = __decorate([
@@ -48,5 +47,4 @@ TestController = __decorate([
     __metadata('design:paramtypes', [])
 ], TestController);
 exports.TestController = TestController;
-var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=TestController.js.map

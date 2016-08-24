@@ -9,6 +9,7 @@ import { FileSystemHelper as fsHelper } from './lib/helpers/FileSystemHelper'
 import { BaseController } from './lib/api/BaseController'
 import { Router } from 'express'
 
+const util = require('util');
 const chalk = require('chalk');
 
 export interface IExpressDecorateOptions
@@ -74,7 +75,7 @@ export class ExpressDecorate
 
         try
         {
-            // Get list of files in /api (recursive)
+            // Get list of files in controllers directory
             let apiContents:string[] = fsHelper.GetDirectoryContents(API_DIR, opts.ctrlLoadRecursive);
 
             apiContents.filter((file:any) =>
@@ -117,17 +118,24 @@ export class ExpressDecorate
 								this._routerAdd(opts, method, mountpath, path, middleware, fnName, controller)
 							);
                         }
+
+						// DEBUG: log controller routes
+						if (opts.debug)
+						{
+							this._constructLogMsg(null, 'debug', opts, `Routes for ${ctrlName}`);
+							controller.$routes.forEach((route:any) => console.log(util.inspect(route)));
+						}
                     }
                     catch(e)
                     {
-                    	this._constructErrorMsg(e, 'error', this.opts, `configuring routes for ${fileName}:`);
+                    	this._constructLogMsg(e, 'error', this.opts, `configuring routes for ${fileName}:`);
                     }
                 }
             });
         }
         catch(e)
         {
-        	this._constructErrorMsg(e, 'error', this.opts);
+        	this._constructLogMsg(e, 'error', this.opts);
         }
     }
 
@@ -143,13 +151,15 @@ export class ExpressDecorate
 		return router;
 	}
 
-	private _constructErrorMsg(e:any, type:string, opts:IExpressDecorateOptions, customMsg?:string):any
+	private _constructLogMsg(e:any, type:string, opts:IExpressDecorateOptions, customMsg?:string):any
 	{
 		let chalk = require('chalk'),
 			color = type === 'error' ? 'red' : type === 'debug' ? 'cyan' : 'blue',
 			flag = `[${type.toUpperCase()}] `,
-			error = opts.debug ? e : e.message,
-			msg = customMsg ? `${customMsg}:` : '';
+			msg = customMsg ? `${customMsg}:` : '',
+			error:any = '';
+
+		if (e) error = opts.debug ? e : e.message;
 
 		return console.log(chalk[color](flag), msg, error);
 	}

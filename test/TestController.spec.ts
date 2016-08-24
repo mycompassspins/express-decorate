@@ -2,9 +2,9 @@
  * Created by Justin on 8/21/16.
  */
 
-import { AppStart } from '../src/lib/api'
-import { TestController } from '../src/lib/api/TestController'
-import { Request } from '../src/lib/helpers/HttpHelper'
+import { AppStart } from './api'
+import { TestController } from './api/TestController'
+import { Request } from './helpers/HttpHelper'
 
 describe('TestController', () =>
 {

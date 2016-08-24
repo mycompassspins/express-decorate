@@ -1,5 +1,5 @@
 "use strict";
-const api_1 = require('../src/lib/api');
+const api_1 = require('./api');
 const FileSystemHelper_1 = require('../src/lib/helpers/FileSystemHelper');
 describe('ExpressDecorate', () => {
     let app = api_1.AppStart(9000);

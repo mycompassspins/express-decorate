@@ -1,7 +1,7 @@
 "use strict";
-const api_1 = require('../src/lib/api');
-const TestController_1 = require('../src/lib/api/TestController');
-const HttpHelper_1 = require('../src/lib/helpers/HttpHelper');
+const api_1 = require('./api');
+const TestController_1 = require('./api/TestController');
+const HttpHelper_1 = require('./helpers/HttpHelper');
 describe('TestController', () => {
     let app = api_1.AppStart(3000), ctrl = new TestController_1.TestController(), expectedRoute = {
         method: 'get',

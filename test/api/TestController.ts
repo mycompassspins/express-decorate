@@ -3,7 +3,7 @@
  */
 
 import { IRequest, IResponse, INextFunction } from './TestMiddleware'
-import { Controller, GET } from '../decorators'
+import { Controller, GET } from '../../src/lib/decorators'
 import { TestMiddleware } from './TestMiddleware'
 
 @Controller('/api/test')

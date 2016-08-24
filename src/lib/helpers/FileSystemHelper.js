@@ -1,11 +1,11 @@
 "use strict";
-const fs = require('fs');
+const fs_1 = require('fs');
 class FileSystemHelper {
     static GetDirectoryContents(root, recursive) {
         if (!this.IsDirectory(root))
             return [];
         try {
-            fs.readdirSync(root).forEach((rootItem) => {
+            fs_1.readdirSync(root).forEach((rootItem) => {
                 if (this.IsDirectory(`${root}/${rootItem}`) && recursive) {
                     this.GetDirectoryContents(`${root}/${rootItem}`, true);
                 }
@@ -23,7 +23,7 @@ class FileSystemHelper {
         return this.contents;
     }
     static IsDirectory(item) {
-        return fs.lstatSync(item).isDirectory();
+        return fs_1.lstatSync(item).isDirectory();
     }
 }
 FileSystemHelper.contents = [];

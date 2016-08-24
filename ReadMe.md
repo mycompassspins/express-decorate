@@ -4,6 +4,10 @@
 
 ```javascript
 import { ExpressDecorate, IExpressDecorateOptions } from 'express-decorate'
+import express = require('express');
+
+let APP = express();
+
 const OPTS:IExpressDecorateOptions = {
     ctrlDir: `${__dirname}/api`, // Required
     extension: 'js', // Optional - defaults to 'js'
@@ -14,7 +18,7 @@ const OPTS:IExpressDecorateOptions = {
     debug: true // Optional - defaults to false - Show stack trace on caught exceptions
 }
 
-new ExpressDecorate(OPTS);
+new ExpressDecorate(APP, OPTS);
 ```
 
 ###API:
