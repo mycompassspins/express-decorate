@@ -4,7 +4,8 @@
   "description": "Express route decorators",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "travis-test": "istanbul cover jasmine-node --captureExceptions build/test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "author": "Notice Everything Creative <info@noticeeverythingcreative.com>",
   "license": "ISC",
