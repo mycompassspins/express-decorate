@@ -19,6 +19,7 @@
     "express": "^4.13.4"
   },
   "devDependencies": {
+    "coveralls": "^2.11.12",
     "del": "^2.2.0",
     "dotbin": "^1.0.1",
     "dts-generator": "^1.7.0",
