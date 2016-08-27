@@ -2,12 +2,13 @@
  * Created by Justin on 8/21/16.
  */
 
-import { ExpressDecorate, IExpressDecorateOptions } from '../'
-import { RouteConfig } from './api/RouteConfig'
+import { ExpressDecorate, IExpressDecorateOptions } from '../../'
+import { RouteConfig } from '../api/RouteConfig'
 import express = require('express');
 import http = require('http');
 let bodyParser = require('body-parser');
 let morgan = require('morgan');
+let path = require('path');
 
 /**
  * Main Express application class - in charge of starting/stopping server and all app configurations
@@ -19,7 +20,13 @@ export class Application
 {
 	public expressApp:express.Application = express();
 	public server:http.Server;
-	public opts:IExpressDecorateOptions = { ctrlDir: `${__dirname}/api`, routeConfig: RouteConfig, debug: true };
+
+	public opts:IExpressDecorateOptions = {
+		ctrlDir: `${path.resolve()}/build/test/api`,
+		routeConfig: RouteConfig,
+		debug: true
+	};
+
 	public expressDecorate:ExpressDecorate;
 
 	constructor(private port:number){}

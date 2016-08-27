@@ -4,7 +4,7 @@
 
 ///<reference path="../../typings/index.d.ts" />
 
-import { AppStart } from './'
+import { AppStart } from './app'
 import { Request } from './helpers/HttpHelper'
 
 describe('RouteConfig', () =>

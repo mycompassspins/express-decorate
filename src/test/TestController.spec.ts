@@ -2,7 +2,7 @@
  * Created by Justin on 8/21/16.
  */
 
-import { AppStart } from './'
+import { AppStart } from './app'
 import { TestController } from './api/TestController'
 import { Request } from './helpers/HttpHelper'
 

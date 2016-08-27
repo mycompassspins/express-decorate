@@ -21,7 +21,18 @@ export class Request
 			request.get(url, (err:any, res:any, body:any) =>
 			{
 				if (err || !body) return reject({ success: false });
-				return resolve(JSON.parse(body));
+
+				let parsedBody:any;
+				try
+				{
+					parsedBody = JSON.parse(body);
+				}
+				catch(e)
+				{
+					parsedBody = res.statusCode;
+				}
+
+				return resolve(parsedBody);
 			})
 		})
 	}
