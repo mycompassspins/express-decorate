@@ -2,7 +2,7 @@
  * Created by Justin on 8/21/16.
  */
 
-import { Destruct, ROUTE_PREFIX, IControllerRoute } from './'
+import { Destruct, ROUTE_PREFIX } from './ValidatePaths'
 
 /**
  * @usage @Route(method, path: optional, ...middleware: optional)
@@ -12,22 +12,35 @@ import { Destruct, ROUTE_PREFIX, IControllerRoute } from './'
  * @returns {(target:any, name:any, descriptor:any)=>void}
  * @constructor
  */
-export function Route(method:string, ...args)
+function Route(method:string, ...args:any[])
 {
 	if (typeof method !== 'string')
 		throw new Error('The first argument must be an HTTP method');
 
 	const [path, middleware] = Destruct(args);
 
-	return (target, name, descriptor):void =>
+	return (target:any, name:string, descriptor:any):void =>
 	{
 		target[`${ROUTE_PREFIX}${name}`] = { method, path, middleware };
 	}
 }
 
+function WsRoute(...args:any[])
+{
+	const [path, middleware] = Destruct(args);
+
+	return (target:any, name:string, descriptor:any):void =>
+	{
+		target[`${ROUTE_PREFIX}${name}`] = { path, middleware };
+	}
+}
+
 // Individual wrappers for @Route()
-export const GET = Route.bind(null, 'get');
-export const POST = Route.bind(null, 'post');
-export const PUT = Route.bind(null, 'put');
-export const DELETE = Route.bind(null, 'delete');
-export const ALL = Route.bind(null, 'all');
+const GET:Function = Route.bind(null, 'get');
+const POST:Function = Route.bind(null, 'post');
+const PUT:Function = Route.bind(null, 'put');
+const DELETE:Function = Route.bind(null, 'delete');
+const ALL:Function = Route.bind(null, 'all');
+const WS:Function = WsRoute.bind(null);
+
+export { Route, WsRoute, GET, POST, PUT, DELETE, ALL, WS }

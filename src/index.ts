@@ -1,9 +1,11 @@
 /**
- * Created by Justin on 8/22/16.
+ * Created by Justin on 8/16/16.
  */
 
-import { ExpressDecorate, IExpressDecorateOptions } from './ExpressDecorate'
-import { GET, PUT, POST, DELETE } from './lib/decorators'
-import { Controller } from './lib/decorators/Controller'
+///<reference path="../typings/index.d.ts" />
 
-export { ExpressDecorate, IExpressDecorateOptions, GET, PUT, POST, DELETE, Controller }
+export { ExpressDecorate } from './lib/ExpressDecorate'
+export { IExpressDecorateOptions, IControllerRoute } from './lib/interfaces/IExpressDecorateRepository'
+export { BaseController } from './lib/api/BaseController'
+export { WS, ALL, GET, PUT, POST, DELETE } from './lib/decorators/Route'
+export { Controller } from './lib/decorators/Controller'

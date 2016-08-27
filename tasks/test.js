@@ -9,7 +9,7 @@ module.exports = (gulp) =>
 
 	gulp.task('test', 'Runs the Jasmine test specs', () =>
 	{
-		return gulp.src(argv.file || 'test/**/*.spec.js')
+		return gulp.src(argv.file ? `build/test/${argv.file}.spec.js` : 'build/test/**/*.spec.js')
 			.pipe(jasmine({
 				timeout: 10000,
 				includeStackTrace: false,

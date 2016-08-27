@@ -1,7 +1,5 @@
-dist/**/*.js
-dist/**/*.d.ts
-dist/ReadMe.md
-dist/package.json
+dist
+build/**/*.js
 typings
 node_modules
 .idea

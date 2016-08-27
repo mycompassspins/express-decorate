@@ -1,5 +1,5 @@
 /**
- * Created by Justin on 8/21/16.
+ * Created by Justin on 8/27/16.
  */
 
 module.exports = (gulp) =>
@@ -9,23 +9,6 @@ module.exports = (gulp) =>
 		exec = require('child_process').exec,
 		gulpSequence = require('gulp-sequence'),
 		del = require('del');
-
-	gulp.task('clean:dist', () =>
-	{
-		return del(['dist/**/*', '!dist/tsconfig.json']);
-	});
-
-	gulp.task('build:readme', () =>
-	{
-		return gulp.src('ReadMe.md')
-			.pipe(gulp.dest('dist'));
-	});
-
-	gulp.task('build:pkg', () =>
-	{
-		return gulp.src('package.json')
-			.pipe(gulp.dest('dist'))
-	});
 
 	let tsFilesGlob = ((c) =>
 	{
@@ -82,8 +65,6 @@ module.exports = (gulp) =>
 		});
 	});
 
-	// run clean:uom task, then run update-tsconfig and gen-def in parallel, then run _build
 	gulp.task('dts', 'Compiles all TypeScript source files and updates module references',
-		gulpSequence('clean:dist', '_build', 'npm-lint', 'build:readme', 'build:pkg'));
+		gulpSequence('clean:dist', '_build', 'npm-lint', 'gen-def', 'build:readme', 'build:pkg'));
 };
-

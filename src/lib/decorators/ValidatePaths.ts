@@ -4,13 +4,15 @@
 
 import { isArray } from 'util'
 
+export const ROUTE_PREFIX = '$$route__';
+
 /**
  * Make sure our paths and middleware are of the right types
  * @param args
  * @returns {string|any[]}
  * @private
  */
-export function Destruct(args):any[]
+export function Destruct(args:any[]):any[]
 {
 	let hasPath:boolean = typeof args[0] === 'string' || ( isArray(args[0]) && _validatePathsArray(args[0]) ),
 		path:string = hasPath ? args[0] : '',
