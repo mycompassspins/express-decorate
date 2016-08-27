@@ -3,10 +3,10 @@ node_js:
  - '6'
 
 before_install:
-  - npm install -g typings@1.3.2
+  - npm install -g typings@1.3.2 && npm install -g gulp
 
 script:
   - "gulp"
 
 after_script:
-  - "gulp && istanbul cover jasmine-node --captureExceptions build/test"
+  - "istanbul cover jasmine-node --captureExceptions build/test -e ./coverage/lcov.info && npm install coveralls@2 ./coverage/coverage.json -t lcovonly | coveralls"
