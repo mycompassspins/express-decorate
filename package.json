@@ -35,6 +35,7 @@
     "gulp-tsconfig-files": "^0.4.0",
     "gulp-typescript": "^2.13.6",
     "http": "0.0.0",
+    "istanbul": "^0.4.5",
     "jasmine": "^2.4.1",
     "jasmine-node": "^2.0.0",
     "morgan": "^1.7.0",
