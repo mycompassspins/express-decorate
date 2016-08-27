@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/mycompassspins/express-decorate.svg?branch=master)](https://travis-ci.org/mycompassspins/express-decorate)
 [![Coverage Status](https://coveralls.io/repos/github/mycompassspins/express-decorate/badge.svg?branch=master)](https://coveralls.io/github/mycompassspins/express-decorate?branch=master)
+[![TypeScript](https://badges.frapsoft.com/typescript/version/typescript-v18.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
 
 ###Usage:
 
