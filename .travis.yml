@@ -9,4 +9,4 @@ script:
   - "gulp"
 
 after_script:
-  	 "gulp && istanbul cover jasmine-node --captureExceptions build/test"
+  - "gulp && istanbul cover jasmine-node --captureExceptions build/test"
