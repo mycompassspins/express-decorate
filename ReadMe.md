@@ -1,5 +1,7 @@
 # express-decorate
 
+[![Build Status](https://travis-ci.org/mycompassspins/express-decorate.svg?branch=master)](https://travis-ci.org/mycompassspins/express-decorate)
+
 ###Usage:
 
 ```javascript
