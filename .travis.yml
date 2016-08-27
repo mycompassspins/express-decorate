@@ -6,7 +6,7 @@ before_install:
   - npm install -g typings@1.3.2 && npm install -g gulp && typings install
 
 script:
-  - "travis-test"
+  - "npm run-script travis-test"
 
 after_script:
   - "istanbul cover jasmine-node --captureExceptions build/test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
