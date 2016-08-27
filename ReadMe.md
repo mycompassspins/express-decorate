@@ -1,4 +1,4 @@
-#Express Decorate
+# express-decorate
 
 ###Usage:
 
