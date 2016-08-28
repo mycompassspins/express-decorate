@@ -6,6 +6,7 @@ import express = require('express');
 import { FileSystemHelper as fsHelper } from './helpers/FileSystemHelper'
 import { IExpressDecorateOptions } from './interfaces/IExpressDecorateRepository'
 import { BaseController } from './api/BaseController'
+import { Log } from './helpers/ErrorMessageHelper'
 import { Router } from 'express'
 
 const util = require('util');
@@ -56,7 +57,7 @@ export class ExpressDecorate
 	{
 		const opts = this.opts,
 			EXT_PATTERN:RegExp = /\.[t|j]s?/,
-			CTRL_PATTERN:RegExp = /Controller/,
+			CTRL_PATTERN:RegExp = /controller/,
 			MAP_PATTERN:RegExp = /\.map$/,
 			API_DIR:string = opts.ctrlDir,
 			IGNORE_PATTERN:RegExp = opts.ctrlIgnore || null;
@@ -78,7 +79,7 @@ export class ExpressDecorate
 
 				// If the file is a Controller and not a .map file
 				if (
-					CTRL_PATTERN.test(fileName) &&
+					CTRL_PATTERN.test(fileName.toLowerCase()) &&
 					!MAP_PATTERN.test(fileName) &&
 					(!IGNORE_PATTERN || !IGNORE_PATTERN.test(fileName))
 				)
@@ -94,11 +95,11 @@ export class ExpressDecorate
 						// Instantiate the controller
 						let	ctrlConstructor:any = require(`${API_DIR}/${path}/${fileName}`),
 							ctrlName:string = Object.keys(ctrlConstructor)[0],
-							controller:BaseController = new ctrlConstructor[ctrlName];
+							controller:BaseController|any = new ctrlConstructor[ctrlName];
 
 						// $routes property is added to each controller via the EndPointRouting decorators
 						// Loop the $routes and attach each to the proper controller action
-						for (const { method, mountpath, path, middleware, fnName } of controller.$routes)
+						for (const { method, mountpath, path, middleware, requiredBodyParams, fnName } of controller.$routes)
 						{
 							// Set the mountpath for Express
 							app.use(
@@ -110,20 +111,20 @@ export class ExpressDecorate
 						// DEBUG: log controller routes
 						if (opts.debug)
 						{
-							this._constructLogMsg(null, 'debug', opts, `Routes for ${ctrlName}`);
+							Log(null, 'debug', opts, `Routes for ${ctrlName}`);
 							controller.$routes.forEach((route:any) => console.log(util.inspect(route)));
 						}
 					}
 					catch(e)
 					{
-						this._constructLogMsg(e, 'error', this.opts, `configuring routes for ${fileName}:`);
+						Log(e, 'error', this.opts, `configuring routes for ${fileName}`);
 					}
 				}
 			});
 		}
 		catch(e)
 		{
-			this._constructLogMsg(e, 'error', this.opts);
+			Log(e, 'error', this.opts);
 		}
 	}
 
@@ -135,20 +136,8 @@ export class ExpressDecorate
 		let router:any = Router({ mergeParams: opts.mergeParams });
 
 		// Attach router, middleware and controller action to mountpath
-		router[method](path, ...middleware, controller[fnName]);
+		router[method === 'alternate' ? opts.alternateMethod : method](path, ...middleware, controller[fnName]);
+
 		return router;
-	}
-
-	private _constructLogMsg(e:any, type:string, opts:IExpressDecorateOptions, customMsg?:string):any
-	{
-		let chalk = require('chalk'),
-			color = type === 'error' ? 'red' : type === 'debug' ? 'cyan' : 'blue',
-			flag = `[${type.toUpperCase()}] `,
-			msg = customMsg ? `${customMsg}:` : '',
-			error:any = '';
-
-		if (e) error = opts.debug ? e : e.message;
-
-		return console.log(chalk[color](flag), msg, error);
 	}
 }

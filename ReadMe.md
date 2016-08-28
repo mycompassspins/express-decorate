@@ -3,6 +3,9 @@
 [![Build Status](https://travis-ci.org/mycompassspins/express-decorate.svg?branch=master)](https://travis-ci.org/mycompassspins/express-decorate)
 [![Coverage Status](https://coveralls.io/repos/github/mycompassspins/express-decorate/badge.svg?branch=master)](https://coveralls.io/github/mycompassspins/express-decorate?branch=master)
 [![TypeScript](https://badges.frapsoft.com/typescript/version/typescript-v18.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
+[![npm Version](https://img.shields.io/badge/npm-3.9.5-blue.svg)](https://img.shields.io/badge/npm-3.9.5-blue.svg)
+[![Node Version](https://img.shields.io/badge/node-6.2.2-blue.svg)](https://img.shields.io/badge/node-6.2.2-blue.svg)
+[![David](https://img.shields.io/david/strongloop/express.svg?maxAge=2592000)](https://www.npmjs.com/package/express-decorate)
 
 
 * [Why](#why)
@@ -60,7 +63,8 @@ const OPTS:IExpressDecorateOptions = {
     ctrlIgnore: 'IgnoreThisController', // Optional - NOT TESTED - @type {string|RegExp}
     mergeParams: true, // Optional - defaults to true - access params used in @Controller in Express's req.params object
     routeConfig: null, // Optional - defaults to null - Any error handling or routes not included in your API
-    debug: true // Optional - defaults to false - Show stack trace on caught exceptions
+    debug: true, // Optional - defaults to false - Show stack trace on caught exceptions
+    alternateMethod: 'websocket' // Optional - Useful if using a library that alters Express' router, (such as express-ws-routes for handling websocket requests)
 }
 
 new ExpressDecorate(APP, OPTS);
@@ -69,7 +73,7 @@ new ExpressDecorate(APP, OPTS);
 ###API:
 
 ```javascript
-import { Controller, GET } from 'express-decorate'
+import { Controller, GET, ALT } from 'express-decorate'
 
 @Controller('/api/controller/:name')
 export class ApiController
@@ -78,6 +82,12 @@ export class ApiController
     public async Get(req, res, next)
     {
         return res.json({ success: true, controllerNameParam: req.params.name, testParam: req.params.testParam });
+    }
+    
+    @ALT('/websocket')
+    public async WebSocketRequest(info:any, cb:Function, next:NextFunction)
+    {
+        console.log(`ws req from ${info.req.originalUrl || info.req.url} using origin ${info.origin}`);
     }
 }
 ```

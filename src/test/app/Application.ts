@@ -4,6 +4,7 @@
 
 import { ExpressDecorate, IExpressDecorateOptions } from '../../'
 import { RouteConfig } from '../api/RouteConfig'
+import { Log } from '../../lib/helpers/ErrorMessageHelper'
 import express = require('express');
 import http = require('http');
 let bodyParser = require('body-parser');
@@ -18,13 +19,14 @@ let path = require('path');
  */
 export class Application
 {
-	public expressApp:express.Application = express();
+	public expressApp:express.Application = require('express-ws-routes')();
 	public server:http.Server;
 
 	public opts:IExpressDecorateOptions = {
 		ctrlDir: `${path.resolve()}/build/test/api`,
 		routeConfig: RouteConfig,
-		debug: true
+		debug: true,
+		alternateMethod: 'websocket'
 	};
 
 	public expressDecorate:ExpressDecorate;
@@ -44,7 +46,7 @@ export class Application
 		this.server = this.expressApp.listen(this.port, () =>
 		{
 			let site:string = `http://localhost:${this.port}`;
-			console.info(`Revelry and awe are afoot at ${site} in development mode.`);
+			Log(null, 'info', this.opts, `Revelry and awe are afoot at ${site} in development mode.`);
 		});
 	}
 
@@ -52,14 +54,12 @@ export class Application
 	{
 		this.server.close(() =>
 		{
-			console.warn('Stopping Express Server . . .');
-
 			// Right now the only thing calling app.Stop() is one of our specs
 			// Give the spec plenty of time to complete before killing the process
 			// TODO: determine if this is an acceptable solution
 			setTimeout(() =>
 			{
-				console.info('Server Stopped');
+				Log(null, 'warn', this.opts, 'Server Stopped');
 				process.exit(0);
 			}, 1500);
 		});

@@ -11,6 +11,7 @@ export interface IExpressDecorateOptions
 	mergeParams?:boolean;
 	routeConfig?:Function;
 	debug?:boolean;
+	alternateMethod?:string;
 }
 
 export interface IControllerRoute
@@ -19,5 +20,6 @@ export interface IControllerRoute
 	mountpath:string|string[];
 	path:string|string[];
 	middleware:string|string[];
+	requiredBodyParams?:string[];
 	fnName:string;
 }

@@ -2,6 +2,8 @@
  * Created by Justin on 8/21/16.
  */
 
+///<reference path="../../node_modules/typescript/lib/lib.es6.d.ts" />
+
 import { AppStart } from './app'
 import { TestController } from './api/TestController'
 import { Request } from './helpers/HttpHelper'
@@ -17,11 +19,11 @@ describe('TestController', () =>
 			fnName: 'TestMethod'
 		};
 
-    it('should have a $routes property with 1 configured route', (done:Function) =>
+    it('should have a $routes property with 3 configured routes', (done:Function) =>
     {
-    	let ctrlCopy:TestController = Object.create(ctrl);
+    	let ctrlCopy:TestController|any = Object.create(ctrl);
         expect(ctrlCopy['$routes']).toBeDefined();
-        expect(ctrlCopy['$routes'].length).toEqual(2);
+        expect(ctrlCopy['$routes'].length).toEqual(3);
         expect(ctrlCopy['$routes'][0].middleware).toBeDefined();
 
         // TODO: middleware property logs as `[ [Function: Test] ]` - How to add that to the expectedRoute object??
@@ -54,5 +56,13 @@ describe('TestController', () =>
 				app.Stop();
 				done();
 			});
+	});
+
+	// TODO: How to actually test a websocket request??
+	it('should make a successful websocket request', (done:Function) =>
+	{
+		expect(true).toBe(true);
+		app.Stop();
+		done();
 	})
 });

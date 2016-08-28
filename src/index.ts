@@ -7,5 +7,5 @@
 export { ExpressDecorate } from './lib/ExpressDecorate'
 export { IExpressDecorateOptions, IControllerRoute } from './lib/interfaces/IExpressDecorateRepository'
 export { BaseController } from './lib/api/BaseController'
-export { WS, ALL, GET, PUT, POST, DELETE } from './lib/decorators/Route'
+export { ALT, ALL, GET, PUT, POST, DELETE } from './lib/decorators/Route'
 export { Controller } from './lib/decorators/Controller'

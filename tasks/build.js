@@ -37,5 +37,10 @@ module.exports = (gulp) =>
 			.pipe(gulp.dest('build'))
 	});
 
-	gulp.task('build', () => runSequence('clean', 'build:app'));
+	// gulp test runs this first, so this needs to complete before tests can run
+	// hence the callback
+	gulp.task('build', (cb) =>
+	{
+		runSequence('clean', 'build:app', cb);
+	});
 };

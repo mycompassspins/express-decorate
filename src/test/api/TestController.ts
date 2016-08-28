@@ -3,15 +3,13 @@
  */
 
 import { IRequest, IResponse, INextFunction } from './TestMiddleware'
-import { Controller, GET, WS } from '../../'
+import { Controller, GET, ALT } from '../../'
 import { TestMiddleware } from './TestMiddleware'
 
 @Controller('/api/test')
 export class TestController
 {
-	public $routes:any;
-
-    @GET('/')
+	@GET('/')
     public async TestMethod(req:IRequest, res:IResponse, next:INextFunction):Promise<IResponse>
     {
     	return res.json({ success: true });
@@ -23,9 +21,9 @@ export class TestController
 		return res.json({ success: true, middleware: req.middleware });
 	}
 
-	// @WS('/websocket-test')
-	// public async TestMethod3(req:IRequest, res:IResponse, next:INextFunction):Promise<any>
-	// {
-	// 	console.log('Websocket Test Controller');
-	// }
+	@ALT('/websocket-test')
+	public async TestMethod3(info:any, cb:any, next:INextFunction):Promise<any>
+	{
+		console.log(`ws req from ${info.req.originalUrl || info.req.url} using origin ${info.origin}`);
+	}
 }

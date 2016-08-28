@@ -3,6 +3,7 @@
  */
 
 import { isArray } from 'util'
+import { Log } from '../helpers/ErrorMessageHelper'
 
 export const ROUTE_PREFIX = '$$route__';
 
@@ -18,8 +19,14 @@ export function Destruct(args:any[]):any[]
 		path:string = hasPath ? args[0] : '',
 		middleware:string[] = hasPath ? args.slice(1) : args;
 
-	if (middleware.some(m => typeof m !== 'function'))
-		throw new Error('Middleware must be function');
+	middleware.forEach((m:any) =>
+	{
+		if (typeof m !== 'function')
+		{
+			throw `Expected ${m} to be a function but got "${typeof m}"`;
+		}
+
+	});
 
 	return [path, middleware]
 }
@@ -36,7 +43,7 @@ function _validatePathsArray(paths:string[]) :boolean
 	{
 		if (path.charAt(0) !== '/')
 		{
-			console.warn(`"${path}" is not a valid path`);
+			Log(null, 'warn', null, `"${path}" is not a valid path`);
 			return false;
 		}
 	});

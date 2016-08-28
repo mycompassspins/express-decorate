@@ -34,7 +34,7 @@ export function Controller(...args:any[]):Function
 					fnName:string = prop.substring(ROUTE_PREFIX.length),
 					route:IControllerRoute;
 
-				// We need mountpath, mountpath and path map to the originalUrl, baseUrl and path on Express's request object
+				// We need mountpath - mountpath and path map to the originalUrl, baseUrl and path on Express's request object
 				route = { method: method === 'del' ? 'delete' : method, mountpath, path, middleware, fnName };
 				return route;
 			})

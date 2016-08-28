@@ -7,7 +7,7 @@ module.exports = (gulp) =>
 	let jasmine = require('gulp-jasmine-node'),
 		argv = require('yargs').argv;
 
-	gulp.task('test', 'Runs the Jasmine test specs', () =>
+	gulp.task('test', 'Runs the Jasmine test specs', ['build'], () =>
 	{
 		return gulp.src(argv.file ? `build/test/${argv.file}.spec.js` : 'build/test/**/*.spec.js')
 			.pipe(jasmine({
