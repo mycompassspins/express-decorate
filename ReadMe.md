@@ -15,7 +15,7 @@
 This library is based on several similar libraries available on npm, most notably [route-decorators](https://github.com/buunguyen/route-decorators). The main difference with this library is that it makes use of Express' 
 detached router capabilities. In other words, this library configures Express routes like this:
 
-```
+```javascript
 import express = require('express');
 import { Router } from 'express';
 
