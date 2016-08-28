@@ -4,8 +4,10 @@
   "description": "Express route decorators",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "travis-test": "istanbul cover jasmine-node --captureExceptions build/test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "test": "gulp test",
+    "travis": "istanbul cover jasmine-node --captureExceptions build/test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "travis-dev": "istanbul cover jasmine-node --captureExceptions build/test",
+    "remove-coverall-dir": "rm -rf ./coverage"
   },
   "author": "Notice Everything Creative <info@noticeeverythingcreative.com>",
   "license": "ISC",
