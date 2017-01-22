@@ -2,8 +2,6 @@
  * Created by Justin on 8/21/16.
  */
 
-///<reference path="../../node_modules/typescript/lib/lib.es6.d.ts" />
-
 import { AppStart } from './app'
 import { TestController } from './api/TestController'
 import { Request } from './helpers/HttpHelper'

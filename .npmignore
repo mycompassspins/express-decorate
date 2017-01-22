@@ -1,8 +1,10 @@
-coverage
-dist/**/*.ts
-dist/**/*.js
 build
 node_modules
+src
+tasks
+.editorconfig
+.travis.yml
+gulpfile.js
 .idea
 npm-debug.log
 .DS_Store

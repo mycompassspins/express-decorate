@@ -1,19 +1,32 @@
+/**
+ * Created by Justin on 8/21/16.
+ */
 "use strict";
 const ValidatePaths_1 = require('./ValidatePaths');
+/**
+ * @usage @Controller(path: optional, ...middleware: optional)
+ * @param args
+ * @returns {(target:any)=>void}
+ * @constructor
+ */
 function Controller(...args) {
-    const [ctrlPath, ctrlMiddleware] = ValidatePaths_1.Destruct(args);
+    // validate ...args
+    const [ctrlPath, ctrlMiddleware] = ValidatePaths_1.Destruct(args), ROUTE_PREFIX = '$$route__';
     return (target) => {
+        // Add a $routes property to the class's prototype
         const proto = target.prototype;
+        // Filter prototype's properties by those prefixed with $$route_
+        // and attach method, paths, middleware and controller action to our $route property
         proto.$routes = Object.getOwnPropertyNames(proto)
-            .filter((prop) => prop.indexOf(ValidatePaths_1.ROUTE_PREFIX) === 0)
+            .filter((prop) => prop.indexOf(ROUTE_PREFIX) === 0)
             .map((prop) => {
             const { method, path, middleware: actionMiddleware } = proto[prop];
-            let mountpath = `${ctrlPath}`, middleware = ctrlMiddleware.concat(actionMiddleware), fnName = prop.substring(ValidatePaths_1.ROUTE_PREFIX.length), route;
-            route = { method: method === 'del' ? 'delete' : method, mountpath: mountpath, path: path, middleware: middleware, fnName: fnName };
+            let mountpath = `${ctrlPath}`, middleware = ctrlMiddleware.concat(actionMiddleware), fnName = prop.substring(ROUTE_PREFIX.length), route;
+            // We need mountpath - mountpath and path map to the originalUrl, baseUrl and path on Express's request object
+            route = { method: method === 'del' ? 'delete' : method, mountpath, path, middleware, fnName };
             return route;
         });
     };
 }
 exports.Controller = Controller;
-
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYi9kZWNvcmF0b3JzL0NvbnRyb2xsZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUlBLGdDQUF1QyxpQkFDdkMsQ0FBQyxDQUR1RDtBQVN4RCxvQkFBMkIsR0FBRyxJQUFVO0lBR3ZDLE1BQU0sQ0FBQyxRQUFRLEVBQUUsY0FBYyxDQUFDLEdBQUcsd0JBQVEsQ0FBQyxJQUFJLENBQUMsQ0FBQztJQUVsRCxNQUFNLENBQUMsQ0FBQyxNQUFVO1FBR2pCLE1BQU0sS0FBSyxHQUFPLE1BQU0sQ0FBQyxTQUFTLENBQUM7UUFJbkMsS0FBSyxDQUFDLE9BQU8sR0FBdUIsTUFBTSxDQUFDLG1CQUFtQixDQUFDLEtBQUssQ0FBQzthQUNuRSxNQUFNLENBQUMsQ0FBQyxJQUFXLEtBQUssSUFBSSxDQUFDLE9BQU8sQ0FBQyw0QkFBWSxDQUFDLEtBQUssQ0FBQyxDQUFDO2FBQ3pELEdBQUcsQ0FBQyxDQUFDLElBQVc7WUFFaEIsTUFBTSxFQUFFLE1BQU0sRUFBRSxJQUFJLEVBQUUsVUFBVSxFQUFFLGdCQUFnQixFQUFFLEdBQUcsS0FBSyxDQUFDLElBQUksQ0FBQyxDQUFDO1lBRW5FLElBQUksU0FBUyxHQUFVLEdBQUcsUUFBUSxFQUFFLEVBQ25DLFVBQVUsR0FBbUIsY0FBYyxDQUFDLE1BQU0sQ0FBQyxnQkFBZ0IsQ0FBQyxFQUNwRSxNQUFNLEdBQVUsSUFBSSxDQUFDLFNBQVMsQ0FBQyw0QkFBWSxDQUFDLE1BQU0sQ0FBQyxFQUNuRCxLQUFzQixDQUFDO1lBR3hCLEtBQUssR0FBRyxFQUFFLE1BQU0sRUFBRSxNQUFNLEtBQUssS0FBSyxHQUFHLFFBQVEsR0FBRyxNQUFNLEVBQUUsV0FBQSxTQUFTLEVBQUUsTUFBQSxJQUFJLEVBQUUsWUFBQSxVQUFVLEVBQUUsUUFBQSxNQUFNLEVBQUUsQ0FBQztZQUM5RixNQUFNLENBQUMsS0FBSyxDQUFDO1FBQ2QsQ0FBQyxDQUFDLENBQUE7SUFDSixDQUFDLENBQUE7QUFDRixDQUFDO0FBNUJlLGtCQUFVLGFBNEJ6QixDQUFBIiwiZmlsZSI6ImxpYi9kZWNvcmF0b3JzL0NvbnRyb2xsZXIuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIENyZWF0ZWQgYnkgSnVzdGluIG9uIDgvMjEvMTYuXG4gKi9cblxuaW1wb3J0IHsgRGVzdHJ1Y3QsIFJPVVRFX1BSRUZJWCB9IGZyb20gJy4vVmFsaWRhdGVQYXRocydcbmltcG9ydCB7IElDb250cm9sbGVyUm91dGUgfSBmcm9tICcuLi9pbnRlcmZhY2VzL0lFeHByZXNzRGVjb3JhdGVSZXBvc2l0b3J5J1xuXG4vKipcbiAqIEB1c2FnZSBAQ29udHJvbGxlcihwYXRoOiBvcHRpb25hbCwgLi4ubWlkZGxld2FyZTogb3B0aW9uYWwpXG4gKiBAcGFyYW0gYXJnc1xuICogQHJldHVybnMgeyh0YXJnZXQ6YW55KT0+dm9pZH1cbiAqIEBjb25zdHJ1Y3RvclxuICovXG5leHBvcnQgZnVuY3Rpb24gQ29udHJvbGxlciguLi5hcmdzOmFueVtdKTpGdW5jdGlvblxue1xuXHQvLyB2YWxpZGF0ZSAuLi5hcmdzXG5cdGNvbnN0IFtjdHJsUGF0aCwgY3RybE1pZGRsZXdhcmVdID0gRGVzdHJ1Y3QoYXJncyk7XG5cblx0cmV0dXJuICh0YXJnZXQ6YW55KTp2b2lkID0+XG5cdHtcblx0XHQvLyBBZGQgYSAkcm91dGVzIHByb3BlcnR5IHRvIHRoZSBjbGFzcydzIHByb3RvdHlwZVxuXHRcdGNvbnN0IHByb3RvOmFueSA9IHRhcmdldC5wcm90b3R5cGU7XG5cblx0XHQvLyBGaWx0ZXIgcHJvdG90eXBlJ3MgcHJvcGVydGllcyBieSB0aG9zZSBwcmVmaXhlZCB3aXRoICQkcm91dGVfXG5cdFx0Ly8gYW5kIGF0dGFjaCBtZXRob2QsIHBhdGhzLCBtaWRkbGV3YXJlIGFuZCBjb250cm9sbGVyIGFjdGlvbiB0byBvdXIgJHJvdXRlIHByb3BlcnR5XG5cdFx0cHJvdG8uJHJvdXRlcyA9IDxJQ29udHJvbGxlclJvdXRlW10+T2JqZWN0LmdldE93blByb3BlcnR5TmFtZXMocHJvdG8pXG5cdFx0XHQuZmlsdGVyKChwcm9wOnN0cmluZykgPT4gcHJvcC5pbmRleE9mKFJPVVRFX1BSRUZJWCkgPT09IDApXG5cdFx0XHQubWFwKChwcm9wOnN0cmluZyk6SUNvbnRyb2xsZXJSb3V0ZSA9PlxuXHRcdFx0e1xuXHRcdFx0XHRjb25zdCB7IG1ldGhvZCwgcGF0aCwgbWlkZGxld2FyZTogYWN0aW9uTWlkZGxld2FyZSB9ID0gcHJvdG9bcHJvcF07XG5cblx0XHRcdFx0bGV0IG1vdW50cGF0aDpzdHJpbmcgPSBgJHtjdHJsUGF0aH1gLFxuXHRcdFx0XHRcdG1pZGRsZXdhcmU6c3RyaW5nfHN0cmluZ1tdID0gY3RybE1pZGRsZXdhcmUuY29uY2F0KGFjdGlvbk1pZGRsZXdhcmUpLFxuXHRcdFx0XHRcdGZuTmFtZTpzdHJpbmcgPSBwcm9wLnN1YnN0cmluZyhST1VURV9QUkVGSVgubGVuZ3RoKSxcblx0XHRcdFx0XHRyb3V0ZTpJQ29udHJvbGxlclJvdXRlO1xuXG5cdFx0XHRcdC8vIFdlIG5lZWQgbW91bnRwYXRoIC0gbW91bnRwYXRoIGFuZCBwYXRoIG1hcCB0byB0aGUgb3JpZ2luYWxVcmwsIGJhc2VVcmwgYW5kIHBhdGggb24gRXhwcmVzcydzIHJlcXVlc3Qgb2JqZWN0XG5cdFx0XHRcdHJvdXRlID0geyBtZXRob2Q6IG1ldGhvZCA9PT0gJ2RlbCcgPyAnZGVsZXRlJyA6IG1ldGhvZCwgbW91bnRwYXRoLCBwYXRoLCBtaWRkbGV3YXJlLCBmbk5hbWUgfTtcblx0XHRcdFx0cmV0dXJuIHJvdXRlO1xuXHRcdFx0fSlcblx0fVxufVxuIl0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9
+//# sourceMappingURL=Controller.js.map

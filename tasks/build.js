@@ -5,12 +5,9 @@
 module.exports = (gulp) =>
 {
 	let sourcemaps = require('gulp-sourcemaps'),
-		ts = require('gulp-typescript'),
-		cache = require('gulp-cached'),
+		exec = require('child_process').exec,
+		chalk = require('chalk'),
 		runSequence = require('run-sequence');
-
-	let tsconfig = require('gulp-tsconfig-files'),
-		del = require('del');
 
 	gulp.task('build:readme', () =>
 	{
@@ -24,23 +21,25 @@ module.exports = (gulp) =>
 			.pipe(gulp.dest('dist'))
 	});
 
-	gulp.task('build:app', () =>
+	gulp.task('build:src', 'Compile server-side TS', (cb) =>
 	{
-		let tsProject = ts.createProject('build/tsconfig.json');
-		let tsResult = gulp.src('src/**/*.ts')
-			.pipe(cache('DistBuild'))
-			.pipe(sourcemaps.init())
-			.pipe(ts(tsProject));
+		exec('tsc --version', (err, stdout, stderr) =>
+		{
+			console.log(chalk.green("Typescript " + stdout));
+		});
 
-		return tsResult.js
-			.pipe(sourcemaps.write())
-			.pipe(gulp.dest('build'))
+		return exec('tsc', (err, stdout, stderr) =>
+		{
+			if (err) console.log(stderr);
+			console.log(chalk.green("Done Compiling TS " + stdout));
+			cb(err);
+		})
 	});
 
 	// gulp test runs this first, so this needs to complete before tests can run
 	// hence the callback
 	gulp.task('build', (cb) =>
 	{
-		runSequence('clean', 'build:app', cb);
+		runSequence('clean', 'build:src', cb);
 	});
 };

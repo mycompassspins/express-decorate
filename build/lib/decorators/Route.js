@@ -1,14 +1,25 @@
+/**
+ * Created by Justin on 8/21/16.
+ */
 "use strict";
 const ValidatePaths_1 = require('./ValidatePaths');
+/**
+ * @usage @Route(method, path: optional, ...middleware: optional)
+ * @param method
+ * @param args
+ * @returns {(target:any, name:any, descriptor:any)=>void}
+ * @constructor
+ */
 function Route(method, ...args) {
     if (typeof method !== 'string')
         throw new Error('The first argument must be an HTTP method');
-    const [path, middleware] = ValidatePaths_1.Destruct(args);
+    const [path, middleware] = ValidatePaths_1.Destruct(args), ROUTE_PREFIX = '$$route__';
     return (target, name, descriptor) => {
-        target[`${ValidatePaths_1.ROUTE_PREFIX}${name}`] = { method: method, path: path, middleware: middleware };
+        target[`${ROUTE_PREFIX}${name}`] = { method, path, middleware };
     };
 }
 exports.Route = Route;
+// Individual wrappers for @Route()
 const GET = Route.bind(null, 'get');
 exports.GET = GET;
 const POST = Route.bind(null, 'post');
@@ -21,5 +32,4 @@ const ALL = Route.bind(null, 'all');
 exports.ALL = ALL;
 const ALT = Route.bind(null, 'alternate');
 exports.ALT = ALT;
-
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYi9kZWNvcmF0b3JzL1JvdXRlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFJQSxnQ0FBdUMsaUJBQ3ZDLENBQUMsQ0FEdUQ7QUFVeEQsZUFBZSxNQUFhLEVBQUUsR0FBRyxJQUFVO0lBRTFDLEVBQUUsQ0FBQyxDQUFDLE9BQU8sTUFBTSxLQUFLLFFBQVEsQ0FBQztRQUM5QixNQUFNLElBQUksS0FBSyxDQUFDLDJDQUEyQyxDQUFDLENBQUM7SUFFOUQsTUFBTSxDQUFDLElBQUksRUFBRSxVQUFVLENBQUMsR0FBRyx3QkFBUSxDQUFDLElBQUksQ0FBQyxDQUFDO0lBRTFDLE1BQU0sQ0FBQyxDQUFDLE1BQVUsRUFBRSxJQUFXLEVBQUUsVUFBYztRQUU5QyxNQUFNLENBQUMsR0FBRyw0QkFBWSxHQUFHLElBQUksRUFBRSxDQUFDLEdBQUcsRUFBRSxRQUFBLE1BQU0sRUFBRSxNQUFBLElBQUksRUFBRSxZQUFBLFVBQVUsRUFBRSxDQUFDO0lBQ2pFLENBQUMsQ0FBQTtBQUNGLENBQUM7QUFVUSxhQUFLLFNBVmI7QUFHRCxNQUFNLEdBQUcsR0FBWSxLQUFLLENBQUMsSUFBSSxDQUFDLElBQUksRUFBRSxLQUFLLENBQUM7QUFPNUIsV0FBRyxPQVAwQjtBQUM3QyxNQUFNLElBQUksR0FBWSxLQUFLLENBQUMsSUFBSSxDQUFDLElBQUksRUFBRSxNQUFNLENBQUM7QUFNekIsWUFBSSxRQU5zQjtBQUMvQyxNQUFNLEdBQUcsR0FBWSxLQUFLLENBQUMsSUFBSSxDQUFDLElBQUksRUFBRSxLQUFLLENBQUM7QUFLakIsV0FBRyxPQUxlO0FBQzdDLE1BQU0sTUFBTSxHQUFZLEtBQUssQ0FBQyxJQUFJLENBQUMsSUFBSSxFQUFFLFFBQVEsQ0FBQztBQUlsQixjQUFNLFVBSmE7QUFDbkQsTUFBTSxHQUFHLEdBQVksS0FBSyxDQUFDLElBQUksQ0FBQyxJQUFJLEVBQUUsS0FBSyxDQUFDO0FBR0osV0FBRyxPQUhFO0FBQzdDLE1BQU0sR0FBRyxHQUFZLEtBQUssQ0FBQyxJQUFJLENBQUMsSUFBSSxFQUFFLFdBQVcsQ0FBQztBQUVMLFdBQUcsT0FGRztBQUVEIiwiZmlsZSI6ImxpYi9kZWNvcmF0b3JzL1JvdXRlLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBDcmVhdGVkIGJ5IEp1c3RpbiBvbiA4LzIxLzE2LlxuICovXG5cbmltcG9ydCB7IERlc3RydWN0LCBST1VURV9QUkVGSVggfSBmcm9tICcuL1ZhbGlkYXRlUGF0aHMnXG5pbXBvcnQgYm9keVBhcnNlciA9IHJlcXVpcmUoXCJib2R5LXBhcnNlclwiKTtcblxuLyoqXG4gKiBAdXNhZ2UgQFJvdXRlKG1ldGhvZCwgcGF0aDogb3B0aW9uYWwsIC4uLm1pZGRsZXdhcmU6IG9wdGlvbmFsKVxuICogQHBhcmFtIG1ldGhvZFxuICogQHBhcmFtIGFyZ3NcbiAqIEByZXR1cm5zIHsodGFyZ2V0OmFueSwgbmFtZTphbnksIGRlc2NyaXB0b3I6YW55KT0+dm9pZH1cbiAqIEBjb25zdHJ1Y3RvclxuICovXG5mdW5jdGlvbiBSb3V0ZShtZXRob2Q6c3RyaW5nLCAuLi5hcmdzOmFueVtdKVxue1xuXHRpZiAodHlwZW9mIG1ldGhvZCAhPT0gJ3N0cmluZycpXG5cdFx0dGhyb3cgbmV3IEVycm9yKCdUaGUgZmlyc3QgYXJndW1lbnQgbXVzdCBiZSBhbiBIVFRQIG1ldGhvZCcpO1xuXG5cdGNvbnN0IFtwYXRoLCBtaWRkbGV3YXJlXSA9IERlc3RydWN0KGFyZ3MpO1xuXG5cdHJldHVybiAodGFyZ2V0OmFueSwgbmFtZTpzdHJpbmcsIGRlc2NyaXB0b3I6YW55KTp2b2lkID0+XG5cdHtcblx0XHR0YXJnZXRbYCR7Uk9VVEVfUFJFRklYfSR7bmFtZX1gXSA9IHsgbWV0aG9kLCBwYXRoLCBtaWRkbGV3YXJlIH07XG5cdH1cbn1cblxuLy8gSW5kaXZpZHVhbCB3cmFwcGVycyBmb3IgQFJvdXRlKClcbmNvbnN0IEdFVDpGdW5jdGlvbiA9IFJvdXRlLmJpbmQobnVsbCwgJ2dldCcpO1xuY29uc3QgUE9TVDpGdW5jdGlvbiA9IFJvdXRlLmJpbmQobnVsbCwgJ3Bvc3QnKTtcbmNvbnN0IFBVVDpGdW5jdGlvbiA9IFJvdXRlLmJpbmQobnVsbCwgJ3B1dCcpO1xuY29uc3QgREVMRVRFOkZ1bmN0aW9uID0gUm91dGUuYmluZChudWxsLCAnZGVsZXRlJyk7XG5jb25zdCBBTEw6RnVuY3Rpb24gPSBSb3V0ZS5iaW5kKG51bGwsICdhbGwnKTtcbmNvbnN0IEFMVDpGdW5jdGlvbiA9IFJvdXRlLmJpbmQobnVsbCwgJ2FsdGVybmF0ZScpO1xuXG5leHBvcnQgeyBSb3V0ZSwgR0VULCBQT1NULCBQVVQsIERFTEVURSwgQUxMLCBBTFQgfVxuIl0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9
+//# sourceMappingURL=Route.js.map

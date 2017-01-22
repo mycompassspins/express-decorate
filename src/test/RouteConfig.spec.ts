@@ -2,8 +2,6 @@
  * Created by Justin on 8/21/16.
  */
 
-///<reference path="../../typings/index.d.ts" />
-
 import { AppStart } from './app'
 import { Request } from './helpers/HttpHelper'
 

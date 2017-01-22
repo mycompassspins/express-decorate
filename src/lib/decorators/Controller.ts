@@ -2,7 +2,7 @@
  * Created by Justin on 8/21/16.
  */
 
-import { Destruct, ROUTE_PREFIX } from './ValidatePaths'
+import { Destruct } from './ValidatePaths'
 import { IControllerRoute } from '../interfaces/IExpressDecorateRepository'
 
 /**
@@ -14,7 +14,8 @@ import { IControllerRoute } from '../interfaces/IExpressDecorateRepository'
 export function Controller(...args:any[]):Function
 {
 	// validate ...args
-	const [ctrlPath, ctrlMiddleware] = Destruct(args);
+	const [ctrlPath, ctrlMiddleware] = Destruct(args),
+		ROUTE_PREFIX = '$$route__';
 
 	return (target:any):void =>
 	{

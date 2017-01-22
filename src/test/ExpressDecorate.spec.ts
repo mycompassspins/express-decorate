@@ -2,8 +2,6 @@
  * Created by Justin on 8/16/16.
  */
 
-///<reference path="../../typings/index.d.ts" />
-
 import { AppStart } from './app'
 import { FileSystemHelper as fsHelper } from '../lib/helpers/FileSystemHelper'
 import express = require('express');

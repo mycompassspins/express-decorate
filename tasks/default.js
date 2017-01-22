@@ -8,6 +8,6 @@ module.exports = (gulp) =>
 
 	gulp.task('default', 'Builds app and tests and runs Jasmine specs', () =>
 	{
-		runSeq('build:app', 'test');
+		runSeq('build', 'test');
 	})
 };

@@ -2,7 +2,7 @@
  * Created by Justin on 8/21/16.
  */
 
-import { Destruct, ROUTE_PREFIX } from './ValidatePaths'
+import { Destruct } from './ValidatePaths'
 import bodyParser = require("body-parser");
 
 /**
@@ -17,7 +17,8 @@ function Route(method:string, ...args:any[])
 	if (typeof method !== 'string')
 		throw new Error('The first argument must be an HTTP method');
 
-	const [path, middleware] = Destruct(args);
+	const [path, middleware] = Destruct(args),
+		ROUTE_PREFIX = '$$route__';
 
 	return (target:any, name:string, descriptor:any):void =>
 	{

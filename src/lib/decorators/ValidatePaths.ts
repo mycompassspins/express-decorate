@@ -5,8 +5,6 @@
 import { isArray } from 'util'
 import { Log } from '../helpers/ErrorMessageHelper'
 
-export const ROUTE_PREFIX = '$$route__';
-
 /**
  * Make sure our paths and middleware are of the right types
  * @param args

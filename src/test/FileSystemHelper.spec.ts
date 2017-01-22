@@ -2,8 +2,6 @@
  * Created by Justin on 8/19/16.
  */
 
-///<reference path="../../typings/index.d.ts" />
-
 process.env.NODE_ENV = 'test';
 import { FileSystemHelper as fsHelper } from '../lib/helpers/FileSystemHelper'
 

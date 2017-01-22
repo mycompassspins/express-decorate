@@ -1,8 +1,15 @@
+/**
+ * Created by Justin on 8/17/16.
+ */
 "use strict";
+/**
+ * @description
+ * Every controller must either extend this BaseController or have `public $routes:IControllerRoute` declared in order
+ * to have its routes loaded. This happens at runtime via the EndpointRouting decorators.
+ */
 class BaseController {
     constructor() {
     }
 }
 exports.BaseController = BaseController;
-
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYi9hcGkvQmFzZUNvbnRyb2xsZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQVNBO0lBR0k7SUFBZSxDQUFDO0FBQ3BCLENBQUM7QUFKWSxzQkFBYyxpQkFJMUIsQ0FBQSIsImZpbGUiOiJsaWIvYXBpL0Jhc2VDb250cm9sbGVyLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBDcmVhdGVkIGJ5IEp1c3RpbiBvbiA4LzE3LzE2LlxuICovXG5cbi8qKlxuICogQGRlc2NyaXB0aW9uXG4gKiBFdmVyeSBjb250cm9sbGVyIG11c3QgZWl0aGVyIGV4dGVuZCB0aGlzIEJhc2VDb250cm9sbGVyIG9yIGhhdmUgYHB1YmxpYyAkcm91dGVzOklDb250cm9sbGVyUm91dGVgIGRlY2xhcmVkIGluIG9yZGVyXG4gKiB0byBoYXZlIGl0cyByb3V0ZXMgbG9hZGVkLiBUaGlzIGhhcHBlbnMgYXQgcnVudGltZSB2aWEgdGhlIEVuZHBvaW50Um91dGluZyBkZWNvcmF0b3JzLlxuICovXG5leHBvcnQgY2xhc3MgQmFzZUNvbnRyb2xsZXJcbntcbiAgICBwdWJsaWMgJHJvdXRlczphbnk7XG4gICAgY29uc3RydWN0b3IoKSB7fVxufVxuIl0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9
+//# sourceMappingURL=BaseController.js.map
