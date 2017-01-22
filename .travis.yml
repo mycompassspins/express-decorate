@@ -1,9 +1,9 @@
 language: node_js
 node_js:
- - '6'
+ - '7'
 
 before_install:
-  - npm install -g typings@1.3.2 && npm install -g gulp && typings install
+  - npm install -g gulp && npm install -g typescript@latest
 
 script:
   - "gulp build:app && npm run-script travis"
