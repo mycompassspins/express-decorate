@@ -9,18 +9,6 @@ module.exports = (gulp) =>
 		chalk = require('chalk'),
 		runSequence = require('run-sequence');
 
-	gulp.task('build:readme', () =>
-	{
-		return gulp.src('ReadMe.md')
-			.pipe(gulp.dest('dist'));
-	});
-
-	gulp.task('build:pkg', () =>
-	{
-		return gulp.src('package.json')
-			.pipe(gulp.dest('dist'))
-	});
-
 	gulp.task('build:src', 'Compile server-side TS', (cb) =>
 	{
 		exec('tsc --version', (err, stdout, stderr) =>

@@ -9,15 +9,7 @@ module.exports = (gulp) => {
 		gulpSequence = require('gulp-sequence'),
 		del = require('del');
 
-	let tsFilesGlob = ((c) => {
-		return c.filesGlob || c.files || 'src/index.ts';
-	})(require('../dist/tsconfig.json'));
-
 	let appName = 'express-decorate';
-
-	// gulp.task('update-tsconfig', 'Update files section in tsconfig.json', () => {
-	// 	gulp.src(tsFilesGlob).pipe(tsconfig());
-	// });
 
 	gulp.task('gen-def', 'Generate a single .d.ts bundle containing external module declarations', (cb) => {
 		return dtsGenerator.default({
@@ -37,7 +29,7 @@ module.exports = (gulp) => {
 			}
 		});
 
-		return exec('tsc -p dist/tsconfig.json', (err, stdout, stderr) => {
+		return exec('tsc -p npm.tsconfig.json', (err, stdout, stderr) => {
 			console.log(stdout);
 			if (stderr) {
 				console.log(stderr);
@@ -57,5 +49,5 @@ module.exports = (gulp) => {
 	});
 
 	gulp.task('dts', 'Compiles all TypeScript source files and updates module references',
-		gulpSequence('clean:dist', '_build', 'npm-lint', 'gen-def', 'build:readme', 'build:pkg'));
+		gulpSequence('clean:dist', '_build', 'npm-lint', 'gen-def'));
 };

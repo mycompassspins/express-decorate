@@ -1,6 +1,6 @@
 {
 	"name": "express-decorate",
-	"version": "1.0.0-rc.2",
+	"version": "2.0.0",
 	"description": "Express route decorators",
 	"main": "index.js",
 	"scripts": {

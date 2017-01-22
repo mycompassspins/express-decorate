@@ -2,10 +2,6 @@
 
 [![Build Status](https://travis-ci.org/mycompassspins/express-decorate.svg?branch=master)](https://travis-ci.org/mycompassspins/express-decorate)
 [![Coverage Status](https://coveralls.io/repos/github/mycompassspins/express-decorate/badge.svg?branch=master)](https://coveralls.io/github/mycompassspins/express-decorate?branch=master)
-[![TypeScript](https://badges.frapsoft.com/typescript/version/typescript-v18.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
-[![npm Version](https://img.shields.io/badge/npm-3.9.5-blue.svg)](https://img.shields.io/badge/npm-3.9.5-blue.svg)
-[![Node Version](https://img.shields.io/badge/node-6.2.2-blue.svg)](https://img.shields.io/badge/node-6.2.2-blue.svg)
-[![David](https://img.shields.io/david/strongloop/express.svg?maxAge=2592000)](https://www.npmjs.com/package/express-decorate)
 
 
 * [Why](#why)

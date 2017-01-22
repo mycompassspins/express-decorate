@@ -1,6 +1,5 @@
 coverage
-dist/**/*.ts
-dist/**/*.js
+dist
 build
 node_modules
 .idea
