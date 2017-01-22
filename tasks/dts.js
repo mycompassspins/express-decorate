@@ -4,8 +4,7 @@
 
 
 module.exports = (gulp) => {
-	let tsconfig = require('gulp-tsconfig-files'),
-		dtsGenerator = require('dts-generator'),
+	let dtsGenerator = require('dts-generator'),
 		exec = require('child_process').exec,
 		gulpSequence = require('gulp-sequence'),
 		del = require('del');
