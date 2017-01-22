@@ -9,12 +9,12 @@ module.exports = (gulp) =>
 
 	gulp.task('clean:build', () =>
 	{
-		return del(['build/**/*', '!build/tsconfig.json']);
+		return del(['build/**/*']);
 	});
 
 	gulp.task('clean:dist', () =>
 	{
-		return del(['dist/**/*', '!dist/tsconfig.json']);
+		return del(['dist/**/*']);
 	});
 
 	gulp.task('clean', () => runSequence('clean:build', 'clean:dist'));
