@@ -6,7 +6,7 @@ before_install:
   - npm install -g gulp && npm install -g typescript@latest
 
 script:
-  - "gulp build:app && npm run-script travis"
+  - "gulp build && npm run-script travis"
 
 after_script:
   - "istanbul cover jasmine-node --captureExceptions build/test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
